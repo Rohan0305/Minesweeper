@@ -282,98 +282,7 @@ int main()
                         }
                     }
 
-                    if ((event.mouseButton.x >= ((actualWidth / 2) + 160) && event.mouseButton.x <= actualWidth ))
-                    {
-                        if ((event.mouseButton.y >= actualHeight - 100) && (event.mouseButton.y <= actualHeight - 36) && lose == false && win == false)
-                        {
-                            string name;
-                            if ((event.mouseButton.x >= ((actualWidth / 2) + 160) && event.mouseButton.x <= ((actualWidth / 2) + 224)))
-                            {
-                                name = "boards/testboard1.brd";
-                            }
 
-                            if ((event.mouseButton.x >= ((actualWidth / 2) + 224) && event.mouseButton.x <= ((actualWidth / 2) + 288)))
-                            {
-                                name = "boards/testboard2.brd";
-                            }
-
-                            if ((event.mouseButton.x >= ((actualWidth / 2) + 288) && event.mouseButton.x <= ((actualWidth / 2) + 352)))
-                            {
-                                name = "boards/testboard3.brd";
-                            }
-
-                            ifstream test(name); // open the file
-
-                            vector<vector<int>> matrix; // the main vector of vectors
-
-                            vector<string> rows; // vector to store rows as strings
-                            string line; // to read each line from the file
-
-                            // read each line from the file
-                            while (std::getline(test, line)) {
-                                rows.push_back(line);
-                            }
-
-
-                            test.close(); // close the file
-
-                            for (int a = 0; a < rows.size(); ++a)
-                            {
-                                vector<int> ir;
-                                for (int b = 0; b < rows[a].size(); ++b)
-                                {
-                                    if (rows[a][b] == '0')
-                                    {
-                                        ir.push_back(0);
-                                    }
-                                    else if (rows[a][b] == '1')
-                                    {
-                                        ir.push_back(9);
-                                    }
-                                }
-                                matrix.push_back(ir);
-
-                            }
-
-                            int flagTest = 0;
-                            for (int yy = 0; yy < tiles.size(); ++yy)
-                            {
-                                for (int xx = 0; xx < tiles[yy].size(); ++xx)
-                                {
-                                    if (board[yy][xx] == 9)
-                                    {
-                                        ++flagTest;
-                                    }
-                                }
-                            }
-                            cout << flagTest;
-
-
-                            board = matrix;
-                            board = cornerBoard(matrix[0].size(), matrix.size(), board);
-                            board = edgesBoard(matrix[0].size(), matrix.size(), board);
-                            board = fullBoard(matrix[0].size(), matrix.size(), board);
-                            flagBoard = board;
-                            for (int i = 0; i < heightMultiplier; ++i)
-                            {
-                                for (int j = 0; j < widthMultiplier; ++j)
-                                {
-                                    cout << board[i][j];
-                                    tiles[i][j].setTexture(tile_hidden);
-                                    tiles[i][j].setPosition(j * 32, i * 32);
-                                }
-                                cout << endl;
-                            }
-                            vector<vector<sf::Sprite>> dummytiles = tiles;
-                            lose = false;
-                            win = false;
-
-                            flagTracker = flagTest;
-                            bool hidden = false;
-
-
-                        }
-                    }
                 }
 
 
@@ -664,41 +573,7 @@ int main()
         debug.setPosition((actualWidth / 2)  + 96, (actualHeight - 100));
         window.draw(debug);
 
-        //Test 1
-        sf::Texture Test1;
-        if (!Test1.loadFromFile("images/test_1.png"))
-        {
-            cout << "Failed to open images/test_1.png" << endl;
-        }
 
-        sf::Sprite Test1_;
-        Test1_.setTexture(Test1);
-        Test1_.setPosition((actualWidth / 2)  + 160, (actualHeight - 100));
-        window.draw(Test1_);
-
-        //Test2
-        sf::Texture Test2;
-        if (!Test2.loadFromFile("images/test_2.png"))
-        {
-            cout << "Failed to open images/test_2.png" << endl;
-        }
-
-        sf::Sprite Test2_;
-        Test2_.setTexture(Test2);
-        Test2_.setPosition((actualWidth / 2)  + 224, (actualHeight - 100));
-        window.draw(Test2_);
-
-        //Test3
-        sf::Texture Test3;
-        if (!Test3.loadFromFile("images/test_3.png"))
-        {
-            cout << "Failed to open images/test_3.png" << endl;
-        }
-
-        sf::Sprite Test3_;
-        Test3_.setTexture(Test3);
-        Test3_.setPosition((actualWidth / 2)  + 288, (actualHeight - 100));
-        window.draw(Test3_);
 
         if (flagTracker >= 0)
         {
