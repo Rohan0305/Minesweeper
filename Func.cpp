@@ -32,15 +32,31 @@ vector<vector<int>> Board(int w, int h, int mines)
 
     vector<int>::iterator iter;
 
-    do
+    int attempts = 0;
+    const int maxAttempts = 1000; // Prevent infinite loop
+    
+    while (vecMines.size() < mines && attempts < maxAttempts)
     {
         int x = place(rng);
         if (find(vecMines.begin(), vecMines.end(), x) == vecMines.end())
         {
             vecMines.push_back(x);
         }
+        attempts++;
     }
-    while (vecMines.size() < mines);
+    
+    // Ensure we have the correct number of mines
+    if (vecMines.size() != mines)
+    {
+        // If we couldn't place enough mines randomly, fill the remaining spots
+        for (int i = 1; i <= (w*h) && vecMines.size() < mines; i++)
+        {
+            if (find(vecMines.begin(), vecMines.end(), i) == vecMines.end())
+            {
+                vecMines.push_back(i);
+            }
+        }
+    }
 
 
     int y;
@@ -441,42 +457,20 @@ void revealBlanks(vector<vector<int>>& dummyBoard, int y, int x)
 }
 bool checkWin(vector<vector<int>>& flagBoard, int& flagTracker)
 {
+    // Check if all non-mine tiles have been revealed
     for (int a = 0; a < flagBoard.size(); ++a)
     {
         for (int b = 0; b < flagBoard[a].size(); ++b)
         {
-            if (flagBoard[a][b] > 0)
+            // If there's a non-mine tile (value > 0) that hasn't been revealed (-2), player hasn't won yet
+            if (flagBoard[a][b] > 0 && flagBoard[a][b] != 9)
             {
                 return false;
             }
         }
     }
-
-    if (flagTracker != 0)
-    {
-        return false;
-    }
-
-
-
-    else if (flagTracker == 0)
-    {
-        cout << "1 True" << endl;
-        for (int i = 0; i < flagBoard.size(); ++i)
-        {
-            for (int j = 0; j < flagBoard[i].size(); ++j)
-            {
-                if (flagBoard[i][j] == 9)
-                {
-                    return false;
-                }
-
-            }
-        }
-    }
-
-
-    cout << "2 pass" << endl;
+    
+    // All non-mine tiles have been revealed, player wins!
     return true;
 }
 

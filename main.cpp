@@ -46,18 +46,19 @@ int main()
         cout << endl;
     }
 
-    int thecount = 0;
+    // Verify the correct number of mines were placed
+    int actualMineCount = 0;
     for (int i = 0; i < heightMultiplier; ++i)
     {
         for (int j = 0; j < widthMultiplier; ++j)
         {
             if (board[i][j] == 9)
             {
-                ++thecount;
+                actualMineCount++;
             }
         }
     }
-    cout << thecount << endl;
+    cout << "Mines placed: " << actualMineCount << " (requested: " << mineCount << ")" << endl;
 
     sf::RenderWindow window(sf::VideoMode(actualWidth, actualHeight), "Minesweeper");
 
@@ -110,7 +111,7 @@ int main()
     sf::Texture tile3;
     if (!tile3.loadFromFile("images/number_3.png"))
     {
-        cout << "Failed to open number_2.png" << endl;
+        cout << "Failed to open number_3.png" << endl;
     }
 
     sf::Texture tile4;
@@ -474,18 +475,6 @@ int main()
                         flagTracker = mineCount;
                         bool hidden = false;
                     }
-                    thecount = 0;
-                    for (int i = 0; i < heightMultiplier; ++i)
-                    {
-                        for (int j = 0; j < widthMultiplier; ++j)
-                        {
-                            if (board[i][j] == 9)
-                            {
-                                ++thecount;
-                            }
-                        }
-                    }
-                    cout << thecount << endl;
                 }
                // cout << event.mouseButton.x << ", " << event.mouseButton.y << endl;
                 if ((event.mouseButton.x >= ((actualWidth / 2) - 32) && event.mouseButton.x <= ((actualWidth / 2) + 32)))
@@ -513,18 +502,6 @@ int main()
                         flagTracker = mineCount;
                         bool hidden = false;
                     }
-                    thecount = 0;
-                    for (int i = 0; i < heightMultiplier; ++i)
-                    {
-                        for (int j = 0; j < widthMultiplier; ++j)
-                        {
-                            if (board[i][j] == 9)
-                            {
-                                ++thecount;
-                            }
-                        }
-                    }
-                    cout << thecount << endl;
                 }
             }
         }
