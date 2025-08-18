@@ -15,7 +15,8 @@ int main()
     string filename = "config.cfg";
     ifstream configFile(filename);
 
-    if (!configFile) {
+    if (!configFile)
+    {
         cerr << "Failed to open file " << filename << endl;
         return 1;
     }
@@ -38,7 +39,7 @@ int main()
     configFile.close();
 
     for (int i = 0; i < heightMultiplier; ++i)
-{
+    {
         for (int j = 0; j < widthMultiplier; ++j)
         {
             cout << board[i][j];
@@ -209,49 +210,57 @@ int main()
             }
             else if (event.type == sf::Event::MouseButtonPressed)
             {
-                if (event.mouseButton.button == sf::Mouse::Left && lose == false && win == false) {
+                if (event.mouseButton.button == sf::Mouse::Left && lose == false && win == false)
+                {
                     x = (event.mouseButton.x) / 32;
                     y = (event.mouseButton.y) / 32;
-                    if (event.mouseButton.y < actualHeight - 100 && tiles[y][x].getTexture() != &flagText) {
+                    if (event.mouseButton.y < actualHeight - 100 && tiles[y][x].getTexture() != &flagText)
+                    {
                         flagBoard[y][x] = -2;
                         win = checkWin(flagBoard, flagTracker);
 
                         cout << y << " " << x << endl;
-                        if (x >= 0 && x < widthMultiplier && y >= 0 && y < heightMultiplier) {
+                        if (x >= 0 && x < widthMultiplier && y >= 0 && y < heightMultiplier)
+                        {
                             tiles[y][x].setTexture(tile_revealed);
                         }
 
-                        if (board[y][x] != 0 && board[y][x] != 9) {
+                        if (board[y][x] != 0 && board[y][x] != 9)
+                        {
                             int index = numIndex(board, y, x);
                             tiles[y][x].setTexture(numbers[index]);
                         }
 
-                        if (board[y][x] == 9) {
+                        if (board[y][x] == 9)
+                        {
                             lose = true;
                             tiles[y][x].setTexture(mineText);
                         }
 
                         //code to make multiple blank tiles disappear
-                        if (board[y][x] == 0) {
+                        if (board[y][x] == 0)
+                        {
                             vector<vector<int>> dummyBoard = board;
                             revealBlanks(dummyBoard, y, x);
 
-                            for (int i = 0; i < dummyBoard.size(); ++i) {
-                                for (int j = 0; j < dummyBoard[i].size(); ++j) {
-                                    if (dummyBoard[i][j] == -1 && tiles[i][j].getTexture() != &flagText) {
+                            for (int i = 0; i < dummyBoard.size(); ++i)
+                            {
+                                for (int j = 0; j < dummyBoard[i].size(); ++j)
+                                {
+                                    if (dummyBoard[i][j] == -1 && tiles[i][j].getTexture() != &flagText)
+                                    {
                                         tiles[i][j].setTexture(tile_revealed);
                                         tiles[i][j].setPosition(j * 32, i * 32);
-                                    } else if (dummyBoard[i][j] == -2 && tiles[i][j].getTexture() != &flagText) {
+                                    }
+                                    else if (dummyBoard[i][j] == -2 && tiles[i][j].getTexture() != &flagText)
+                                    {
                                         int indexNumTexture = numIndex(board, i, j);
                                         tiles[i][j].setTexture(numbers[indexNumTexture]);
                                         tiles[i][j].setPosition(j * 32, i * 32);
                                     }
                                 }
-
                             }
-
                         }
-
                     }
 
                     if ((event.mouseButton.x >= ((actualWidth / 2) + 96) && event.mouseButton.x <= ((actualWidth / 2) + 160)))
@@ -573,14 +582,13 @@ int main()
         debug.setPosition((actualWidth / 2)  + 96, (actualHeight - 100));
         window.draw(debug);
 
-
-
         if (flagTracker >= 0)
         {
             if (flagTracker >= 0 && flagTracker < 100)
             {
                 sf::Texture lnText;
-                if (!lnText.loadFromFile("images/digits.png")) {
+                if (!lnText.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -591,9 +599,9 @@ int main()
 
                 window.draw(leftNum);
 
-
                 sf::Texture rnText;
-                if (!rnText.loadFromFile("images/digits.png")) {
+                if (!rnText.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -605,7 +613,8 @@ int main()
                 window.draw(rightNum);
 
                 sf::Texture l1Text;
-                if (!l1Text.loadFromFile("images/digits.png")) {
+                if (!l1Text.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -619,7 +628,8 @@ int main()
             if (flagTracker >= 100)
             {
                 sf::Texture lnText;
-                if (!lnText.loadFromFile("images/digits.png")) {
+                if (!lnText.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -631,7 +641,8 @@ int main()
                 window.draw(leftNum);
 
                 sf::Texture rnText;
-                if (!rnText.loadFromFile("images/digits.png")) {
+                if (!rnText.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -643,7 +654,8 @@ int main()
                 window.draw(rightNum);
 
                 sf::Texture l1Text;
-                if (!l1Text.loadFromFile("images/digits.png")) {
+                if (!l1Text.loadFromFile("images/digits.png"))
+                {
                     cout << "Failed to open digits.png" << endl;
                 }
 
@@ -655,9 +667,6 @@ int main()
                 window.draw(l1);
             }
         }
-
-
-
 
         if (flagTracker < 0)
         {

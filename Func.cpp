@@ -9,16 +9,7 @@ using namespace std;
 
 vector<vector<int>> Board(int w, int h, int mines)
 {
-    vector<vector<int>> board;
-    for (int v = 0; v < h; ++v)
-    {
-        vector<int> row;
-        for (int z = 0; z < w; ++z)
-        {
-            row.push_back(0);
-        }
-        board.push_back(row);
-    }
+    vector<vector<int>> board(h, vector<int>(w, 0));
 
 
     random_device rd;
@@ -91,7 +82,7 @@ vector<vector<int>> Board(int w, int h, int mines)
 }
 vector<vector<int>> cornerBoard(int w, int h, vector<vector<int>>& board)
 {
-    //top left corner************************************************
+    // Top left corner
     int count = 0;
     if (board[0][0] == 0)
     {
@@ -113,7 +104,7 @@ vector<vector<int>> cornerBoard(int w, int h, vector<vector<int>>& board)
         board[0][0] = count;
     }
 
-    //top right corner***************************************
+    // Top right corner
     count = 0;
     if (board[0][w-1] == 0)
     {
@@ -135,7 +126,7 @@ vector<vector<int>> cornerBoard(int w, int h, vector<vector<int>>& board)
         board[0][w - 1] = count;
     }
 
-    //bottem left corner************************************************
+    // Bottom left corner
     count = 0;
     if (board[h - 1][0] == 0)
     {
@@ -157,7 +148,7 @@ vector<vector<int>> cornerBoard(int w, int h, vector<vector<int>>& board)
         board[h - 1][0] = count;
     }
 
-    //bottom right corner************************************************
+    // Bottom right corner
     count = 0;
     if (board[h - 1][w - 1] == 0)
     {
@@ -179,12 +170,11 @@ vector<vector<int>> cornerBoard(int w, int h, vector<vector<int>>& board)
         board[h - 1][w - 1] = count;
     }
     return board;
-
 }
 
 vector<vector<int>> edgesBoard(int w, int h, vector<vector<int>>& board)
 {
-    //top edge*********************************************
+    // Top edge
     for (int i = 1; i < w - 1; ++i)
     {
         int count = 0;
@@ -217,10 +207,9 @@ vector<vector<int>> edgesBoard(int w, int h, vector<vector<int>>& board)
 
             board[0][i] = count;
         }
-
     }
 
-    //bottom edge*********************************************
+    // Bottom edge
     for (int i = 1; i < w - 1; ++i)
     {
         int count = 0;
@@ -255,7 +244,7 @@ vector<vector<int>> edgesBoard(int w, int h, vector<vector<int>>& board)
         }
     }
 
-    //left edge*********************************************
+    // Left edge
     for (int i = 1; i < h - 1; ++i)
     {
         int count = 0;
@@ -288,10 +277,9 @@ vector<vector<int>> edgesBoard(int w, int h, vector<vector<int>>& board)
 
             board[i][0] = count;
         }
-
     }
 
-    //right edge*********************************************
+    // Right edge
     for (int i = 1; i < h - 1; ++i)
     {
         int count = 0;
@@ -450,11 +438,12 @@ void revealBlanks(vector<vector<int>>& dummyBoard, int y, int x)
             }
         }
     }
-    else {
+    else
+    {
         dummyBoard[y][x] = -2;
     }
-
 }
+
 bool checkWin(vector<vector<int>>& flagBoard, int& flagTracker)
 {
     // Check if all non-mine tiles have been revealed
@@ -477,40 +466,32 @@ bool checkWin(vector<vector<int>>& flagBoard, int& flagTracker)
 int getLeft(int flagTracker)
 {
     int l = flagTracker / 10;
-
     return l;
 }
 
 int getRight(int flagTracker)
 {
     int r = flagTracker % 10;
-
     return r;
 }
 
 int getLeft3(int flagTracker)
 {
     int l = flagTracker % 10;
-
     l = flagTracker - l;
-
     int x = l % 100;
-
     l = x / 10;
-
     return l;
 }
 
 int getRight3(int flagTracker)
 {
     int r = flagTracker % 10;
-
     return r;
 }
 
 int getL1(int flagTracker)
 {
     int l1 = flagTracker / 100;
-
     return l1;
 }
