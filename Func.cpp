@@ -7,9 +7,9 @@
 
 using namespace std;
 
-vector<vector<int>> Board(int w, int h, int mines)
+vector<vector<int> > Board(int w, int h, int mines)
 {
-    vector<vector<int>> board(h, vector<int>(w, 0));
+    vector<vector<int> > board(h, vector<int>(w, 0));
 
 
     random_device rd;
@@ -446,11 +446,16 @@ void revealBlanks(vector<vector<int>>& dummyBoard, int y, int x)
 
 bool checkWin(vector<vector<int>>& flagBoard, int& flagTracker)
 {
-    // Check if all non-mine tiles have been revealed
+    // Check if all mines are correctly flagged and all non-mine tiles are revealed
     for (int a = 0; a < flagBoard.size(); ++a)
     {
         for (int b = 0; b < flagBoard[a].size(); ++b)
         {
+            // If there's a mine (value 9) that isn't flagged (-1), player hasn't won yet
+            if (flagBoard[a][b] == 9)
+            {
+                return false;
+            }
             // If there's a non-mine tile (value > 0) that hasn't been revealed (-2), player hasn't won yet
             if (flagBoard[a][b] > 0 && flagBoard[a][b] != 9)
             {
@@ -459,7 +464,7 @@ bool checkWin(vector<vector<int>>& flagBoard, int& flagTracker)
         }
     }
     
-    // All non-mine tiles have been revealed, player wins!
+    // All mines are flagged and all non-mine tiles are revealed, player wins!
     return true;
 }
 

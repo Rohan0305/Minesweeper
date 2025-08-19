@@ -347,7 +347,12 @@ int main()
                             tiles[y][x].setTexture(tile_hidden);
                             tiles[y][x].setPosition(x * 32, y * 32);
                             ++flagTracker;
+                            
+                            // Reset the flagBoard value for this tile back to its original value
+                            flagBoard[y][x] = board[y][x];
                         }
+                        
+                        // Update flagBoard for all revealed tiles
                         for (int a = 0; a < flagBoard.size(); ++a)
                         {
                             for (int b = 0; b < flagBoard[a].size(); ++b)
